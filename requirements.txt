@@ -4,3 +4,4 @@ python-dotenv
 ipykernel
 jupyter
 matplotlib
+mysql-connector-python
