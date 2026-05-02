@@ -1,136 +1,168 @@
-# Weather ETL Pipeline Project
+# Weather ETL Pipeline
 
-## What is this project?
-
-This project automatically collects weather information from around the world and stores it in a organized way so we can analyze it later.
-
-Think of it like having a personal weather assistant that:
-1. Checks the weather in multiple cities
-2. Writes down all the information
-3. Organizes it in a digital filing system
-4. Creates easy-to-understand charts and reports
+An end-to-end ETL (Extract, Transform, Load) data pipeline that collects real-time weather data from multiple global cities, processes it into a clean analytical format, and generates insights through visualizations and reports.
 
 ---
 
-## Why did we build this?
+## Project Overview
 
-Weather data is everywhere but it's usually hard to work with. This project solves that problem by:
+This project demonstrates how to build a complete data pipeline using Python by:
 
-- **Automating** the weather collection (no manual checking needed)
-- **Standardizing** the data (making all cities comparable)
-- **Storing** it for future analysis (building history over time)
-- **Visualizing** the results (turning numbers into pictures)
+- Extracting real-time weather data from an external API  
+- Transforming raw JSON data into structured, analysis-ready datasets  
+- Loading the data into storage systems for historical tracking  
+- Analyzing and visualizing the data to generate meaningful insights  
 
----
-
-## How does it work? (The 4-Step Process)
-
-### Step 1: EXTRACT - Getting the weather data
-
-The system asks OpenWeatherMap (a free weather service) for current weather information in 6 major cities:
-- London, United Kingdom
-- New York, USA
-- Tokyo, Japan
-- Sydney, Australia
-- Cape Town, South Africa
-- Mumbai, India
-
-**What we collect for each city:**
-- Temperature (how hot or cold)
-- Humidity (how much moisture in the air)
-- Wind speed (how strong the wind is)
-- Pressure (atmospheric pressure)
-- Cloud cover (how cloudy it is)
-- Weather conditions (sunny, rainy, cloudy, etc.)
-
-### Step 2: TRANSFORM - Cleaning and organizing the data
-
-Raw weather data comes in a messy format. This step:
-- Removes unnecessary information
-- Standardizes measurements (all temperatures in Celsius)
-- Adds useful calculated fields (like "feels like" temperature)
-- Creates a clean, organized table of data
-
-### Step 3: LOAD - Storing the data
-
-The cleaned data is saved in three ways:
-1. **Database** (like a digital filing cabinet) - for fast searching and analysis
-2. **CSV files** (like Excel spreadsheets) - for easy viewing
-3. **JSON files** (computer-friendly format) - for other programs to use
-
-### Step 4: ANALYZE - Understanding the weather
-
-This step creates:
-- **Charts and graphs** to see patterns
-- **Rankings** to compare cities
-- **Comfort scores** to find the most pleasant weather
-- **Reports** summarizing all findings
+It simulates a real-world data engineering workflow and follows best practices in data processing and organization.
 
 ---
 
-## What can we learn from this data?
+## Architecture (ETL Flow)
 
-### Example insights you can discover:
+OpenWeather API → Extract → Transform → Load → Analyze → Insights
 
-| Question | How this project answers it |
-|----------|----------------------------|
-| Which city is hottest? | Compares temperatures across all cities |
-| Which city is most humid? | Ranks cities by humidity percentage |
-| Where is the weather most comfortable? | Calculates comfort score based on temperature and humidity |
-| What's the most common weather type? | Counts all weather conditions |
-| Is there a relationship between temperature and humidity? | Creates scatter plots to show patterns |
+
+### Extract
+- Fetches real-time weather data using the OpenWeatherMap API  
+- Collects data for multiple cities across different continents  
+
+### Transform
+- Cleans and standardizes raw JSON data  
+- Converts temperature to Celsius  
+- Removes irrelevant fields  
+- Creates structured tabular data  
+- Adds derived metrics (e.g., “feels like” temperature)  
+
+### Load
+- Stores processed data in:
+  - SQLite database (for querying and historical tracking)
+  - CSV files (for easy access)
+  - JSON files (raw backup)
+
+### Analyze
+- Generates:
+  - Data visualizations (charts and graphs)
+  - City comparisons and rankings
+  - Weather comfort scoring
+  - Summary reports  
 
 ---
 
-## What's inside this project?
+## Cities Covered
 
-Weather ETL Pipeline/
+- London  
+- New York  
+- Tokyo  
+- Sydney  
+- Cape Town  
+- Mumbai  
+
+---
+
+## Key Features
+
+- Fully automated ETL pipeline  
+- Multi-city real-time data ingestion  
+- Clean and standardized datasets  
+- Historical data storage  
+- Data visualization and reporting  
+- Modular notebook-based design  
+
+---
+
+## Tech Stack
+
+- Python  
+- Pandas (data processing)  
+- Requests (API calls)  
+- SQLite (data storage)  
+- Matplotlib / Seaborn (visualization)  
+- Jupyter Notebooks  
+
+---
+
+## Project Structure
+
+Weather-ETL-Pipeline/
+
+├── notebooks/
+│ ├── 1_extract.ipynb
+│ ├── 2_transform.ipynb
+│ ├── 3_load.ipynb
+│ └── 4_analysis.ipynb
 │
-├── notebooks/ # The main brains of the operation
-│ ├── 1_extract.ipynb # Step 1: Gets weather data
-│ ├── 2_transform.ipynb # Step 2: Cleans and organizes
-│ ├── 3_load.ipynb # Step 3: Saves to database
-│ └── 4_analysis.ipynb # Step 4: Creates charts and reports
+├── data/
+│ ├── weather_data.db
+│ ├── transformed_weather.csv
+│ ├── raw_extract.json
+│ └── weather_analysis_summary.csv
 │
-├── data/ # Where all information is stored
-│ ├── weather_data.db # Main database (all historical data)
-│ ├── transformed_weather.csv # Clean data as spreadsheet
-│ ├── raw_extract.json # Original weather data (backup)
-│ └── weather_analysis_summary.csv # Final report
-│
-├── requirements.txt # List of tools this project needs
-├── .env # Secret key for weather service
-└── README.md 
+├── requirements.txt
+├── .env
+└── README.md
 
 
 ---
 
-## How to use this project
+## Setup and Installation
 
-### What you need before starting:
+### 1. Clone the repository
 
-1. **Python** installed on your computer (version 3.7 or newer)
-2. **A free API key** from OpenWeatherMap (takes 2 minutes to get)
-3. **VS Code** with Python extensions (or any code editor)
 
-### Step-by-step setup (even non-technical users can follow):
+git clone https://github.com/your-username/weather-etl-pipeline.git
+cd weather-etl-pipeline
 
-#### 1. Get your free weather API key
-- Go to https://home.openweathermap.org/users/sign_up
-- Create a free account
-- Verify your email
-- Copy your API key (looks like a bunch of random letters and numbers)
+## 2. Create a virtual environment
 
-#### 2. Set up the project
-```bash
-# Create a virtual environment (isolated workspace for this project)
 python -m venv venv
 
-# Activate it
-# On Windows:
+Activate it:
+
+# Windows
 venv\Scripts\activate
-# On Mac/Linux:
+
+# Mac/Linux
 source venv/bin/activate
 
-# Install required tools
+
+## 3. Install dependencies
+
 pip install -r requirements.txt
+
+## 4. Add API key
+
+API_KEY=your_openweathermap_api_key
+
+You can get a free API key from OpenWeatherMap.
+
+## 5. Run the pipeline
+
+Run the notebooks in order:
+
+1_extract.ipynb
+2_transform.ipynb
+3_load.ipynb
+4_analysis.ipynb
+
+
+Future Improvements
+Automate pipeline scheduling (e.g., Airflow or Azure Data Factory)
+Store data in a cloud data warehouse (e.g., Azure Synapse)
+Add real-time dashboards (Power BI or Streamlit)
+Expand to more cities and historical trends
+Implement data quality checks and logging
+Why This Project Matters
+
+This project showcases:
+
+End-to-end data engineering skills
+API integration and data ingestion
+Data transformation and cleaning
+Database design and storage strategies
+Analytical thinking and visualization
+
+
+## Author
+Ginna Seerane
+Data Engineer
+
